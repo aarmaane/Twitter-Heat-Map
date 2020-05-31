@@ -11,12 +11,9 @@ hashtagCollection = db.Hashtags
 # Getting coordinates
 coordinateDict = hashtagCollection.find_one({})
 
-
-
 coordinates = []
 coordinates2 = []
 coordinates3 = []
-
 
 num = 1
 while True:
@@ -36,9 +33,6 @@ for coord in coordinates:
 for coord in coordinates2:
     coordinates3.append((2*(coord[0]+180),2*(-1*(coord[1])+90)))
 
-#print(coordinates)
-print(coordinates2)
-print(coordinates3)
 
 os.environ['SDL_VIDEO_CENTERED'] = '1'  # Centering the screen
 init()  # Starting up pygame
@@ -55,7 +49,6 @@ while running:
             running = False
     screen.blit(map,(0,0))
     for coord in coordinates3:
-        #draw.circle(screen,(0,0,0),(int(coord[0]),int(coord[1])),2)
         screen.blit(logo,(int(coord[0]-20),int(coord[1])))
         
     display.flip()
