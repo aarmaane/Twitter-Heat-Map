@@ -10,7 +10,14 @@ db = client.Twitter
 hashtagCollection = db.Hashtags
 # Getting coordinates
 coordinateDict = hashtagCollection.find_one({})
+
+
+
 coordinates = []
+coordinates2 = []
+coordinates3 = []
+
+
 num = 1
 while True:
     try:
@@ -19,14 +26,26 @@ while True:
         lastBracket = line.find(']')
         coordinates.append(line[firstBracket+1:lastBracket])
         num += 1
-        print(coordinates)
+        
     except:
         break
+
+for coord in coordinates:
+    coordinates2.append(list(map(float,coord.split(", "))))
+
+for coord in coordinates2:
+    coordinates3.append((2*(coord[0]+180),2*(-1*(coord[1])+90)))
+
+#print(coordinates)
+print(coordinates2)
+print(coordinates3)
+
 os.environ['SDL_VIDEO_CENTERED'] = '1'  # Centering the screen
 init()  # Starting up pygame
-size = width, height = 1000, 600
+size = width, height = 720, 360
 screen = display.set_mode(size)
-map = transform.scale(image.load("map.jpg"),(1000,600))
+map = transform.scale(image.load("map.png"),(720,360))
+logo = transform.scale(image.load("logo.png"),(20,20))
 running = True
 
 
@@ -35,4 +54,8 @@ while running:
         if evnt.type == QUIT:
             running = False
     screen.blit(map,(0,0))
+    for coord in coordinates3:
+        #draw.circle(screen,(0,0,0),(int(coord[0]),int(coord[1])),2)
+        screen.blit(logo,(int(coord[0]-20),int(coord[1])))
+        
     display.flip()
