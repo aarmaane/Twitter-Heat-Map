@@ -27,15 +27,11 @@ userTweetNum = int(input("How many tweets would you like to find? "))
 tweetDict = {}
 tweetNum = 0
 for tweet in tweepy.Cursor(api.search,q="#" + userHashtag,count=100).items():
-    print(tweet.place)
     if tweet.coordinates is not None:
         tweetNum += 1
-        print(tweet.place)
         tweetDict[str(tweetNum)] = str(tweet.coordinates)
         if tweetNum == userTweetNum:
             break
-
+print("Tweet search finished!")
 hashtagCollection.insert_one(tweetDict)
-
-
-
+print("MongoDB upload complete!")

@@ -23,7 +23,6 @@ while True:
         lastBracket = line.find(']')
         coordinates.append(line[firstBracket+1:lastBracket])
         num += 1
-        
     except:
         break
 
